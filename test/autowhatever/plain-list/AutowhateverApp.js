@@ -12,6 +12,7 @@ export default class AutowhateverApp extends Component {
     this.state = {
       value: '',
       highlightedItemIndex: null,
+      hoveredItemIndex: null,
     };
 
     this.inputRef = React.createRef();
@@ -31,13 +32,13 @@ export default class AutowhateverApp extends Component {
 
   onMouseEnter = (event, { itemIndex }) => {
     this.setState({
-      highlightedItemIndex: itemIndex,
+      hoveredItemIndex: itemIndex,
     });
   };
 
   onMouseLeave = () => {
     this.setState({
-      highlightedItemIndex: null,
+      hoveredItemIndex: null,
     });
   };
 
@@ -48,7 +49,7 @@ export default class AutowhateverApp extends Component {
   };
 
   render() {
-    const { value, highlightedItemIndex } = this.state;
+    const { value, highlightedItemIndex, hoveredItemIndex } = this.state;
     const inputProps = {
       id: 'my-fancy-input',
       value,
@@ -69,6 +70,7 @@ export default class AutowhateverApp extends Component {
         inputProps={inputProps}
         itemProps={itemProps}
         highlightedItemIndex={highlightedItemIndex}
+        hoveredItemIndex={hoveredItemIndex}
         ref={this.storeAutowhateverReference}
       />
     );

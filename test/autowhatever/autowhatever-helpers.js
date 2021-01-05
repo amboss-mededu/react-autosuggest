@@ -25,6 +25,7 @@ export const getElementWithClass = (className) =>
 export const getStoredInput = () => app.autowhatever.input;
 export const getStoredItemsContainer = () => app.autowhatever.itemsContainer;
 export const getStoredHighlightedItem = () => app.autowhatever.highlightedItem;
+export const getStoredHoveredItem = () => app.autowhatever.hoveredItem;
 export const getInputRef = () => app.inputRef;
 
 export const getContainerAttribute = (attr) => container.getAttribute(attr);

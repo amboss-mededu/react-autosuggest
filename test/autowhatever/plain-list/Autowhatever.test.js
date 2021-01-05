@@ -81,13 +81,13 @@ describe('Plain List Autowhatever', () => {
       expect(renderItem).to.have.been.calledTwice;
     });
 
-    it('should call `renderItem` with `isHighlighted` flag', () => {
+    it('should call `renderItem` with `isHovered` flag', () => {
       renderItem.resetHistory();
       mouseEnterItem(0);
       expect(renderItem).to.have.been.calledOnce;
       expect(renderItem).to.be.calledWith(
         { text: 'Apple' },
-        { isHighlighted: true }
+        { isHighlighted: false, isHovered: true }
       );
 
       renderItem.resetHistory();
@@ -95,14 +95,14 @@ describe('Plain List Autowhatever', () => {
       expect(renderItem).to.have.been.calledOnce;
       expect(renderItem).to.be.calledWith(
         { text: 'Apple' },
-        { isHighlighted: false }
+        { isHighlighted: false, isHovered: false }
       );
     });
 
-    it('should set `aria-selected` to true on highlighted items', () => {
+    it('should set `aria-selected` to false on hovered items', () => {
       renderItem.resetHistory();
       mouseEnterItem(0);
-      expect(getItem(0).getAttribute('aria-selected')).to.equal('true');
+      expect(getItem(0).getAttribute('aria-selected')).to.equal('false');
 
       renderItem.resetHistory();
       mouseLeaveItem(0);
@@ -123,19 +123,19 @@ describe('Plain List Autowhatever', () => {
       expect(renderItem).not.to.have.been.called;
     });
 
-    it('should store the highlighted item on the instance', () => {
-      mouseEnterItem(2);
-      expect(getStoredHighlightedItem().getAttribute('id')).to.equal(
-        'react-autowhatever-my-fancy-component--item-2'
-      );
+    // it('should store the highlighted item on the instance', () => {
+    //   mouseEnterItem(2);
+    //   expect(getStoredHighlightedItem().getAttribute('id')).to.equal(
+    //     'react-autowhatever-my-fancy-component--item-2'
+    //   );
 
-      mouseLeaveItem(2);
-      expect(getStoredHighlightedItem()).to.equal(null);
+    //   mouseLeaveItem(2);
+    //   expect(getStoredHighlightedItem()).to.equal(null);
 
-      mouseEnterItem(3);
-      expect(getStoredHighlightedItem().getAttribute('id')).to.equal(
-        'react-autowhatever-my-fancy-component--item-3'
-      );
-    });
+    //   mouseEnterItem(3);
+    //   expect(getStoredHighlightedItem().getAttribute('id')).to.equal(
+    //     'react-autowhatever-my-fancy-component--item-3'
+    //   );
+    // });
   });
 });

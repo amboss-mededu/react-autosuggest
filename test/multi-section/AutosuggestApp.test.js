@@ -21,7 +21,7 @@ import {
   clickUp,
   setInputValue,
   focusAndSetInputValue,
-  clickClearButton
+  clickClearButton,
 } from '../helpers';
 import AutosuggestApp, {
   renderSuggestion,
@@ -30,7 +30,7 @@ import AutosuggestApp, {
   onSuggestionHighlighted,
   renderSectionTitle,
   getSectionSuggestions,
-  setHighlightFirstSuggestion
+  setHighlightFirstSuggestion,
 } from './AutosuggestApp';
 
 describe('Autosuggest with multiSection={true}', () => {
@@ -52,7 +52,7 @@ describe('Autosuggest with multiSection={true}', () => {
       clickDown();
       expect(renderSuggestion.getCall(0).args).to.deep.equal([
         { name: 'C', year: 1972 },
-        { query: '', isHighlighted: true }
+        { query: '', isHighlighted: true, isHovered: false },
       ]);
     });
 
@@ -62,7 +62,7 @@ describe('Autosuggest with multiSection={true}', () => {
       clickDown();
       expect(renderSuggestion.getCall(0).args).to.deep.equal([
         { name: 'C', year: 1972 },
-        { query: '', isHighlighted: true }
+        { query: '', isHighlighted: true, isHovered: false },
       ]);
     });
   });
@@ -84,7 +84,7 @@ describe('Autosuggest with multiSection={true}', () => {
         'PHP',
         'Python',
         'Ruby',
-        'Scala'
+        'Scala',
       ]);
     });
   });
@@ -100,7 +100,7 @@ describe('Autosuggest with multiSection={true}', () => {
       expect(onSuggestionSelected).to.have.been.calledWith(
         syntheticEventMatcher,
         sinon.match({
-          sectionIndex: 1
+          sectionIndex: 1,
         })
       );
     });
@@ -111,7 +111,7 @@ describe('Autosuggest with multiSection={true}', () => {
       expect(onSuggestionSelected).to.have.been.calledWith(
         syntheticEventMatcher,
         sinon.match({
-          sectionIndex: 2
+          sectionIndex: 2,
         })
       );
     });
@@ -124,7 +124,7 @@ describe('Autosuggest with multiSection={true}', () => {
       clickDown();
       expect(onSuggestionHighlighted).to.have.been.calledOnce;
       expect(onSuggestionHighlighted).to.have.been.calledWithExactly({
-        suggestion: { name: 'C', year: 1972 }
+        suggestion: { name: 'C', year: 1972 },
       });
     });
 
@@ -135,7 +135,7 @@ describe('Autosuggest with multiSection={true}', () => {
       clickUp();
       expect(onSuggestionHighlighted).to.have.been.calledOnce;
       expect(onSuggestionHighlighted).to.have.been.calledWithExactly({
-        suggestion: null
+        suggestion: null,
       });
     });
   });
@@ -147,7 +147,7 @@ describe('Autosuggest with multiSection={true}', () => {
       expect(onSuggestionsFetchRequested).to.have.been.calledOnce;
       expect(onSuggestionsFetchRequested).to.have.been.calledWithExactly({
         value: '',
-        reason: 'input-focused'
+        reason: 'input-focused',
       });
     });
 
@@ -158,7 +158,7 @@ describe('Autosuggest with multiSection={true}', () => {
       expect(onSuggestionsFetchRequested).to.have.been.calledOnce;
       expect(onSuggestionsFetchRequested).to.have.been.calledWithExactly({
         value: '',
-        reason: 'escape-pressed'
+        reason: 'escape-pressed',
       });
     });
   });
@@ -185,7 +185,7 @@ describe('Autosuggest with multiSection={true}', () => {
         'PHP',
         'Python',
         'Ruby',
-        'Scala'
+        'Scala',
       ]);
     });
   });
@@ -203,21 +203,21 @@ describe('Autosuggest with multiSection={true}', () => {
         languages: [
           {
             name: 'C',
-            year: 1972
+            year: 1972,
           },
           {
             name: 'C#',
-            year: 2000
+            year: 2000,
           },
           {
             name: 'C++',
-            year: 1983
+            year: 1983,
           },
           {
             name: 'Clojure',
-            year: 2007
-          }
-        ]
+            year: 2007,
+          },
+        ],
       });
     });
 
@@ -245,13 +245,13 @@ describe('Autosuggest with multiSection={true}', () => {
         languages: [
           {
             name: 'Java',
-            year: 1995
+            year: 1995,
           },
           {
             name: 'JavaScript',
-            year: 1995
-          }
-        ]
+            year: 1995,
+          },
+        ],
       });
     });
 
