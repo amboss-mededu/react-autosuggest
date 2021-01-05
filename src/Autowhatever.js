@@ -22,6 +22,7 @@ const defaultTheme = {
   item: 'react-autowhatever__item',
   itemFirst: 'react-autowhatever__item--first',
   itemHighlighted: 'react-autowhatever__item--highlighted',
+  itemHovered: 'react-autowhatever__item--hovered',
   sectionContainer: 'react-autowhatever__section-container',
   sectionContainerFirst: 'react-autowhatever__section-container--first',
   sectionTitle: 'react-autowhatever__section-title',
@@ -47,6 +48,7 @@ export default class Autowhatever extends Component {
     ]),
     highlightedSectionIndex: PropTypes.number, // Section index of the highlighted item
     highlightedItemIndex: PropTypes.number, // Highlighted item index (within a section)
+    hoveredItemIndex: PropTypes.number,
     theme: PropTypes.oneOfType([
       // Styles. See: https://github.com/markdalgleish/react-themeable
       PropTypes.object,
@@ -194,6 +196,7 @@ export default class Autowhatever extends Component {
       renderSectionTitle,
       highlightedSectionIndex,
       highlightedItemIndex,
+      hoveredItemIndex,
       itemProps,
     } = this.props;
 
@@ -229,6 +232,7 @@ export default class Autowhatever extends Component {
                 ? highlightedItemIndex
                 : null
             }
+            hoveredItemIndex={hoveredItemIndex}
             onHighlightedItemChange={this.onHighlightedItemChange}
             getItemId={this.getItemId}
             theme={theme}
@@ -255,6 +259,7 @@ export default class Autowhatever extends Component {
       renderItemData,
       highlightedSectionIndex,
       highlightedItemIndex,
+      hoveredItemIndex,
       itemProps,
     } = this.props;
 
@@ -267,6 +272,7 @@ export default class Autowhatever extends Component {
         highlightedItemIndex={
           highlightedSectionIndex === null ? highlightedItemIndex : null
         }
+        hoveredItemIndex={hoveredItemIndex}
         onHighlightedItemChange={this.onHighlightedItemChange}
         getItemId={this.getItemId}
         theme={theme}
@@ -374,6 +380,7 @@ export default class Autowhatever extends Component {
       renderItemsContainer,
       highlightedSectionIndex,
       highlightedItemIndex,
+      hoveredItemIndex,
     } = this.props;
     const { isInputFocused } = this.state;
     const renderedItems = multiSection

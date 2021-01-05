@@ -6,6 +6,7 @@ export default class Item extends Component {
   static propTypes = {
     sectionIndex: PropTypes.number,
     isHighlighted: PropTypes.bool.isRequired,
+    isHovered: PropTypes.bool,
     itemIndex: PropTypes.number.isRequired,
     item: PropTypes.any.isRequired,
     renderItem: PropTypes.func.isRequired,
@@ -53,6 +54,7 @@ export default class Item extends Component {
   render() {
     const {
       isHighlighted,
+      isHovered,
       item,
       renderItem,
       renderItemData,
@@ -80,7 +82,7 @@ export default class Item extends Component {
 
     return (
       <li role="option" {...restProps} ref={this.storeItemReference}>
-        {renderItem(item, { isHighlighted, ...renderItemData })}
+        {renderItem(item, { isHighlighted, isHovered, ...renderItemData })}
       </li>
     );
   }
