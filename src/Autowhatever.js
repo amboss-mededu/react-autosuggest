@@ -380,7 +380,6 @@ export default class Autowhatever extends Component {
       renderItemsContainer,
       highlightedSectionIndex,
       highlightedItemIndex,
-      hoveredItemIndex,
     } = this.props;
     const { isInputFocused } = this.state;
     const renderedItems = multiSection

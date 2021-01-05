@@ -203,6 +203,7 @@ export default class Autosuggest extends Component {
 
     if (onSuggestionHovered) {
       const hoveredSuggestion = this.getHoveredSuggestion();
+
       if (hoveredSuggestion !== null) {
         onSuggestionHovered({
           suggestion: hoveredSuggestion,
@@ -217,7 +218,7 @@ export default class Autosuggest extends Component {
   }
 
   updateHoveredSuggestion(sectionIndex, suggestionIndex) {
-    this.setState((state) => {
+    this.setState(() => {
       return {
         hoveredSuggestionIndex: suggestionIndex,
         hoveredSuggestion:
@@ -269,7 +270,7 @@ export default class Autosuggest extends Component {
   }
 
   resetHoveredSuggestion() {
-    this.setState((state) => {
+    this.setState(() => {
       return {
         hoveredSuggestion: null,
         hoveredSuggestionIndex: null,
@@ -762,7 +763,6 @@ export default class Autosuggest extends Component {
             }
 
             const highlightedSuggestion = this.getHighlightedSuggestion();
-            const hoveredSuggestion = this.getHoveredSuggestion();
 
             if (isOpen && !alwaysRenderSuggestions) {
               this.closeSuggestions();
