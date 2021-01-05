@@ -81,12 +81,6 @@ export default class Basic extends Component {
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            onSuggestionHovered={({ suggestion }) => {
-              console.log(`hovered `, suggestion);
-            }}
-            onSuggestionHighlighted={({ suggestion }) => {
-              console.log(`highlighted`, suggestion);
-            }}
             getSuggestionValue={getSuggestionValue}
             renderSuggestion={renderSuggestion}
             inputProps={inputProps}

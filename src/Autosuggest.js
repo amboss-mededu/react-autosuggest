@@ -764,9 +764,6 @@ export default class Autosuggest extends Component {
             const highlightedSuggestion = this.getHighlightedSuggestion();
             const hoveredSuggestion = this.getHoveredSuggestion();
 
-            console.log({ highlightedSuggestion });
-            console.log({ hoveredSuggestion });
-
             if (isOpen && !alwaysRenderSuggestions) {
               this.closeSuggestions();
             }
