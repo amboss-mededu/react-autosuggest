@@ -817,6 +817,31 @@ describe('Default Autosuggest', () => {
     });
   });
 
+  describe('onSuggestionHighlighted', () => {
+    beforeEach(() => {
+      focusAndSetInputValue('j');
+      onSuggestionHighlighted.resetHistory();
+    });
+
+    it('should be called once with the highlighted suggestion when mouse enters a suggestion', () => {
+      clickDown();
+      expect(onSuggestionHighlighted).to.have.been.calledOnce;
+      expect(onSuggestionHighlighted).to.have.been.calledWithExactly({
+        suggestion: { name: 'Java', year: 1995 },
+      });
+    });
+
+    it('should be called once with null when mouse leaves a suggestion and there is no more highlighted suggestion', () => {
+      clickDown();
+      onSuggestionHighlighted.resetHistory();
+      clickUp();
+      expect(onSuggestionHighlighted).to.have.been.calledOnce;
+      expect(onSuggestionHighlighted).to.have.been.calledWithExactly({
+        suggestion: null,
+      });
+    });
+  });
+
   describe('onSuggestionHovered', () => {
     beforeEach(() => {
       focusAndSetInputValue('j');
