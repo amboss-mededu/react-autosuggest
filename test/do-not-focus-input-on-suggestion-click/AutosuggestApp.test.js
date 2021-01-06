@@ -7,11 +7,11 @@ import {
   clickSuggestion,
   focusAndSetInputValue,
   isInputFocused,
-  mouseUpDocument
+  mouseUpDocument,
 } from '../helpers';
 import AutosuggestApp, {
   onBlur,
-  onSuggestionsClearRequested
+  onSuggestionsClearRequested,
 } from './AutosuggestApp';
 
 describe('Autosuggest with focusInputOnSuggestionClick={false}', () => {
@@ -34,7 +34,7 @@ describe('Autosuggest with focusInputOnSuggestionClick={false}', () => {
     it('should call onBlur once with the right parameters', () => {
       expect(onBlur).to.have.been.calledOnce;
       expect(onBlur).to.have.been.calledWithExactly(syntheticEventMatcher, {
-        highlightedSuggestion: { name: 'PHP', year: 1995 }
+        hoveredSuggestion: { name: 'PHP', year: 1995 },
       });
     });
 

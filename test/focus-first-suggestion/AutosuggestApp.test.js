@@ -16,6 +16,7 @@ import {
   clickDown,
   setInputValue,
   focusAndSetInputValue,
+  expectHoveredSuggestion,
 } from '../helpers';
 import AutosuggestApp, {
   onChange,
@@ -31,7 +32,7 @@ describe('Autosuggest with highlightFirstSuggestion={true}', () => {
   });
 
   describe('when highlightFirstSuggestion changes from true to false', () => {
-    it("should unhighlight the suggestion", () => {
+    it('should unhighlight the suggestion', () => {
       focusAndSetInputValue('j');
       expectHighlightedSuggestion('Java');
 
@@ -39,7 +40,7 @@ describe('Autosuggest with highlightFirstSuggestion={true}', () => {
       expectHighlightedSuggestion(null);
     });
 
-    it("should retain the selected suggestion if it was set manually", () => {
+    it('should retain the selected suggestion if it was set manually', () => {
       focusAndSetInputValue('j');
       expectHighlightedSuggestion('Java');
       clickDown();
@@ -49,7 +50,7 @@ describe('Autosuggest with highlightFirstSuggestion={true}', () => {
       expectHighlightedSuggestion('JavaScript');
     });
 
-    it("should re-highlight the suggestion if it becomes true again", () => {
+    it('should re-highlight the suggestion if it becomes true again', () => {
       focusAndSetInputValue('j');
       expectHighlightedSuggestion('Java');
 
@@ -87,15 +88,17 @@ describe('Autosuggest with highlightFirstSuggestion={true}', () => {
       expectHighlightedSuggestion('Java');
     });
 
-    it('should highlight a suggestion when mouse enters it', () => {
+    it('should hover a suggestion when mouse enters it', () => {
       mouseEnterSuggestion(1);
-      expectHighlightedSuggestion('JavaScript');
+      expectHighlightedSuggestion('Java');
+      expectHoveredSuggestion('JavaScript');
     });
 
     it('should not have highlighted suggestions when mouse leaves a suggestion', () => {
       mouseEnterSuggestion(1);
       mouseLeaveSuggestion(1);
-      expectHighlightedSuggestion(null);
+      expectHighlightedSuggestion('Java');
+      expectHoveredSuggestion(null);
     });
   });
 

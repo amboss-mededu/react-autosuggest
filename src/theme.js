@@ -10,6 +10,7 @@ export const defaultTheme = {
   suggestion: 'react-autosuggest__suggestion',
   suggestionFirst: 'react-autosuggest__suggestion--first',
   suggestionHighlighted: 'react-autosuggest__suggestion--highlighted',
+  suggestionHovered: 'react-autosuggest__suggestion--hovered',
   sectionContainer: 'react-autosuggest__section-container',
   sectionContainerFirst: 'react-autosuggest__section-container--first',
   sectionTitle: 'react-autosuggest__section-title',
@@ -38,6 +39,10 @@ export const mapToAutowhateverTheme = (theme) => {
 
       case 'suggestionHighlighted':
         result['itemHighlighted'] = theme[key];
+        break;
+
+      case 'suggestionHovered':
+        result['itemHovered'] = theme[key];
         break;
 
       case 'suggestionsList':

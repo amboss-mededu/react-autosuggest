@@ -11,6 +11,7 @@ export default class ItemsList extends Component {
     renderItemData: PropTypes.object.isRequired,
     sectionIndex: PropTypes.number,
     highlightedItemIndex: PropTypes.number,
+    hoveredItemIndex: PropTypes.number,
     onHighlightedItemChange: PropTypes.func.isRequired,
     getItemId: PropTypes.func.isRequired,
     theme: PropTypes.func.isRequired,
@@ -39,6 +40,7 @@ export default class ItemsList extends Component {
       renderItemData,
       sectionIndex,
       highlightedItemIndex,
+      hoveredItemIndex,
       getItemId,
       theme,
       keyPrefix,
@@ -54,6 +56,7 @@ export default class ItemsList extends Component {
         {items.map((item, itemIndex) => {
           const isFirst = itemIndex === 0;
           const isHighlighted = itemIndex === highlightedItemIndex;
+          const isHovered = itemIndex === hoveredItemIndex;
           const itemKey = `${sectionPrefix}item-${itemIndex}`;
           const itemPropsObj = isItemPropsFunction
             ? itemProps({ sectionIndex, itemIndex })
@@ -65,7 +68,8 @@ export default class ItemsList extends Component {
               itemKey,
               'item',
               isFirst && 'itemFirst',
-              isHighlighted && 'itemHighlighted'
+              isHighlighted && 'itemHighlighted',
+              isHovered && 'itemHovered'
             ),
             ...itemPropsObj,
           };
@@ -81,6 +85,7 @@ export default class ItemsList extends Component {
               {...allItemProps}
               sectionIndex={sectionIndex}
               isHighlighted={isHighlighted}
+              isHovered={isHovered}
               itemIndex={itemIndex}
               item={item}
               renderItem={renderItem}

@@ -165,6 +165,7 @@ class Example extends React.Component {
 | [`inputProps`](#input-props-prop)                                      | Object   |                        ✓                         | Pass through arbitrary props to the input. It must contain at least `value` and `onChange`.                                                                                                           |
 | [`onSuggestionSelected`](#on-suggestion-selected-prop)                 | Function |                                                  | Will be called every time suggestion is selected via mouse or keyboard.                                                                                                                               |
 | [`onSuggestionHighlighted`](#on-suggestion-highlighted-prop)           | Function |                                                  | Will be called every time the highlighted suggestion changes.                                                                                                                                         |
+| [`onSuggestionHovered`](#on-suggestion-hovered-prop)           | Function |                                                  | Will be called every time a suggestion is hovered.                                                                                                                                         |
 | [`shouldRenderSuggestions`](#should-render-suggestions-prop)           | Function |                                                  | When the input is focused, Autosuggest will consult this function when to render suggestions. Use it, for example, if you want to display suggestions when input value is at least 2 characters long. |
 | [`alwaysRenderSuggestions`](#always-render-suggestions-prop)           | Boolean  |                                                  | Set it to `true` if you'd like to render suggestions even when the input is not focused.                                                                                                              |
 | [`highlightFirstSuggestion`](#highlight-first-suggestion-prop)         | Boolean  |                                                  | Set it to `true` if you'd like Autosuggest to automatically highlight the first suggestion.                                                                                                           |
@@ -305,6 +306,7 @@ where:
 - `suggestion` - The suggestion to render
 - `query` - Used to highlight the matching string. As user types in the input, `query` will be equal to the trimmed value of the input. Then, if user interacts using the <kbd>Up</kbd> or <kbd>Down</kbd> keys, [the input will get the value of the highlighted suggestion](https://rawgit.com/w3c/aria-practices/master/aria-practices-DeletedSectionsArchive.html#autocomplete), but `query` will remain to be equal to the trimmed value of the input prior to the <kbd>Up</kbd> and <kbd>Down</kbd> interactions.
 - `isHighlighted` - Whether or not the suggestion is highlighted.
+- `isHovered` - Whether or not the suggestion is hovered.
 
 It should return a string or a `ReactElement`. For example:
 
@@ -400,6 +402,20 @@ function onSuggestionHighlighted({ suggestion })
 where:
 
 - `suggestion` - the highlighted suggestion, or `null` if there is no highlighted suggestion.
+
+<a name="on-suggestion-hovered-prop"></a>
+
+#### onSuggestionHovered (optional)
+
+This function is called when a suggestion is hovered. It has the following signature:
+
+```js
+function onSuggestionHovered({ suggestion })
+```
+
+where:
+
+- `suggestion` - the hovered suggestion.
 
 <a name="should-render-suggestions-prop"></a>
 

@@ -45,6 +45,7 @@ export default class Autosuggest extends Component {
     shouldKeepSuggestionsOnSelect: PropTypes.func,
     onSuggestionSelected: PropTypes.func,
     onSuggestionHighlighted: PropTypes.func,
+    onSuggestionHovered: PropTypes.func,
     renderInputComponent: PropTypes.func,
     renderSuggestionsContainer: PropTypes.func,
     getSuggestionValue: PropTypes.func.isRequired,
@@ -118,6 +119,8 @@ export default class Autosuggest extends Component {
       highlightedSectionIndex: null,
       highlightedSuggestionIndex: null,
       highlightedSuggestion: null,
+      hoveredSuggestion: null,
+      hoveredSuggestionIndex: null,
       valueBeforeUpDown: null,
     };
 
@@ -174,6 +177,7 @@ export default class Autosuggest extends Component {
     const {
       suggestions,
       onSuggestionHighlighted,
+      onSuggestionHovered,
       highlightFirstSuggestion,
     } = this.props;
 
@@ -196,11 +200,33 @@ export default class Autosuggest extends Component {
         });
       }
     }
+
+    if (onSuggestionHovered) {
+      const hoveredSuggestion = this.getHoveredSuggestion();
+
+      if (hoveredSuggestion !== null) {
+        onSuggestionHovered({
+          suggestion: hoveredSuggestion,
+        });
+      }
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.onDocumentMouseDown);
     document.removeEventListener('mouseup', this.onDocumentMouseUp);
+  }
+
+  updateHoveredSuggestion(sectionIndex, suggestionIndex) {
+    this.setState(() => {
+      return {
+        hoveredSuggestionIndex: suggestionIndex,
+        hoveredSuggestion:
+          suggestionIndex === null
+            ? null
+            : this.getSuggestion(sectionIndex, suggestionIndex),
+      };
+    });
   }
 
   updateHighlightedSuggestion(sectionIndex, suggestionIndex, prevValue) {
@@ -243,6 +269,15 @@ export default class Autosuggest extends Component {
     });
   }
 
+  resetHoveredSuggestion() {
+    this.setState(() => {
+      return {
+        hoveredSuggestion: null,
+        hoveredSuggestionIndex: null,
+      };
+    });
+  }
+
   revealSuggestions() {
     this.setState({
       isCollapsed: false,
@@ -280,6 +315,16 @@ export default class Autosuggest extends Component {
       highlightedSectionIndex,
       highlightedSuggestionIndex
     );
+  }
+
+  getHoveredSuggestion() {
+    const { hoveredSuggestion } = this.state;
+
+    if (hoveredSuggestion === null) {
+      return null;
+    }
+
+    return hoveredSuggestion;
   }
 
   getSuggestionValueByIndex(sectionIndex, suggestionIndex) {
@@ -369,7 +414,7 @@ export default class Autosuggest extends Component {
   };
 
   onSuggestionMouseEnter = (event, { sectionIndex, itemIndex }) => {
-    this.updateHighlightedSuggestion(sectionIndex, itemIndex);
+    this.updateHoveredSuggestion(sectionIndex, itemIndex);
 
     if (event.target === this.pressedSuggestion) {
       this.justSelectedSuggestion = true;
@@ -474,7 +519,7 @@ export default class Autosuggest extends Component {
   onBlur = () => {
     const { inputProps, shouldRenderSuggestions } = this.props;
     const { value, onBlur } = inputProps;
-    const highlightedSuggestion = this.getHighlightedSuggestion();
+    const hoveredSuggestion = this.getHoveredSuggestion();
     const shouldRender = shouldRenderSuggestions(value, REASON_INPUT_BLURRED);
 
     this.setState({
@@ -482,15 +527,18 @@ export default class Autosuggest extends Component {
       highlightedSectionIndex: null,
       highlightedSuggestionIndex: null,
       highlightedSuggestion: null,
+      hoveredSuggestion: null,
+      hoveredSuggestionIndex: null,
       valueBeforeUpDown: null,
       isCollapsed: !shouldRender,
     });
 
-    onBlur && onBlur(this.blurEvent, { highlightedSuggestion });
+    onBlur && onBlur(this.blurEvent, { hoveredSuggestion });
   };
 
   onSuggestionMouseLeave = (event) => {
-    this.resetHighlightedSuggestion(false); // shouldResetValueBeforeUpDown
+    //this.resetHighlightedSuggestion(false); // shouldResetValueBeforeUpDown
+    this.resetHoveredSuggestion();
 
     if (
       this.justSelectedSuggestion &&
@@ -564,6 +612,7 @@ export default class Autosuggest extends Component {
       isCollapsed,
       highlightedSectionIndex,
       highlightedSuggestionIndex,
+      hoveredSuggestionIndex,
       valueBeforeUpDown,
     } = this.state;
     const shouldRenderSuggestions = alwaysRenderSuggestions
@@ -806,6 +855,7 @@ export default class Autosuggest extends Component {
         getSectionItems={getSectionSuggestions}
         highlightedSectionIndex={highlightedSectionIndex}
         highlightedItemIndex={highlightedSuggestionIndex}
+        hoveredItemIndex={hoveredSuggestionIndex}
         inputProps={autowhateverInputProps}
         itemProps={this.itemProps}
         theme={mapToAutowhateverTheme(theme)}
