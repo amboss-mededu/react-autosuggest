@@ -519,6 +519,7 @@ export default class Autosuggest extends Component {
   onBlur = () => {
     const { inputProps, shouldRenderSuggestions } = this.props;
     const { value, onBlur } = inputProps;
+    const highlightedSuggestion = this.getHighlightedSuggestion();
     const hoveredSuggestion = this.getHoveredSuggestion();
     const shouldRender = shouldRenderSuggestions(value, REASON_INPUT_BLURRED);
 
@@ -533,11 +534,11 @@ export default class Autosuggest extends Component {
       isCollapsed: !shouldRender,
     });
 
-    onBlur && onBlur(this.blurEvent, { hoveredSuggestion });
+    onBlur &&
+      onBlur(this.blurEvent, { highlightedSuggestion, hoveredSuggestion });
   };
 
   onSuggestionMouseLeave = (event) => {
-    //this.resetHighlightedSuggestion(false); // shouldResetValueBeforeUpDown
     this.resetHoveredSuggestion();
 
     if (
